@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+  <tlib-version>1.0</tlib-version>
+  <short-name>sampletagslib</short-name>
+  <description>Sample Custom Tag Library</description>
+
+  <tag>
+    <name>greet</name>
+    <tag-class>com.mapua.lab.tags.GreeterTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Display a greeting</description>
+    <attribute>
+      <name>color</name>
+      <required>false</required>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>date</name>
+    <tag-class>com.mapua.lab.tags.DateDisplayTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Display a date</description>
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+    </attribute>
+  </tag>
+  
+</taglib>
