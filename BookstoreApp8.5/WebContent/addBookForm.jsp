@@ -22,7 +22,6 @@
 <%
 CustomerDao validUser = new CustomerDao();
 if (!validUser.validateAdminType((String) session.getAttribute(Utils.USER_SESSION))) {
-	System.out.println("this is addbookform");
 	response.sendRedirect("bookCatalog.jsp");
 }
 %>

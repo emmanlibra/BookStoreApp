@@ -31,7 +31,6 @@
 
 <% 
 	if (session.getAttribute(Utils.USER_SESSION) != null) { 
-		System.out.println("this is login.jsp");
 		response.sendRedirect("addBookForm.jsp"); 
 	}
 %>

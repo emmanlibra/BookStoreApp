@@ -74,17 +74,12 @@ public class RegistrationServlet extends HttpServlet {
 			    out.println("</script>");	
 				
 			} else if (cust.getCustomerType().equals("customer_user")) {
-				session.invalidate();
 				PrintWriter out = response.getWriter();
 			    out.println("<script type=\"text/javascript\">");
 			    out.println("alert('Registration Success');");
-//			    out.println("location='login.jsp';");
-			    out.println("</script>");
-			    
-			    RequestDispatcher dis = request.getRequestDispatcher("login.jsp");
-				dis.forward(request, response);
-				
-				System.out.println("Registration Success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			    out.println("location='login.jsp';");
+			    out.println("</script>");				
+				System.out.println("Registered Successfully");
 			}
 			
 		} else {
