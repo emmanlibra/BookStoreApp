@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.mapua.lab.model.Book;
 import com.mapua.lab.model.Customer;
 import com.mapua.lab.model.CustomerDao;
+import com.mapua.lab.model.Utils;
 
 /**
  * Servlet implementation class RegistrationServlet
@@ -51,7 +52,7 @@ public class RegistrationServlet extends HttpServlet {
 		
 		boolean result = false;
 		CustomerDao dao = new CustomerDao();
-		if (session.getAttribute("theUserName") != null) {
+		if (session.getAttribute(Utils.USER_SESSION) != null) {
 			String userType = request.getParameter("usertype");
 			cust.setLoginType(userType);
 			result = dao.addNewUserFromAdmin(cust);	
@@ -65,34 +66,26 @@ public class RegistrationServlet extends HttpServlet {
 		
 		if (result == true) {				
 			
-			if (dao.validateAdminType((String) session.getAttribute("theUserName")) == true){
+			if (dao.validateAdminType((String) session.getAttribute(Utils.USER_SESSION)) == true){
 				response.setContentType("text/html;charset=UTF-8");
 			    PrintWriter out = response.getWriter();
 			    out.println("<script type=\"text/javascript\">");
-			    //out.println("alert('Added New Account Success!');");
 			    out.println("location='accountList.jsp';");
 			    out.println("</script>");	
 				
 			} else if (cust.getCustomerType().equals("customer_user")) {
-
-				session.setAttribute("theUserName", name);
-				System.out.println("session name");	
-				
-				ArrayList<Book> list = new ArrayList<Book>();
-				session.setAttribute("cartItems", list);
-				
-			    response.setContentType("text/html;charset=UTF-8");
-			    PrintWriter out = response.getWriter();
+				session.invalidate();
+				PrintWriter out = response.getWriter();
 			    out.println("<script type=\"text/javascript\">");
-			    //out.println("alert('Registration Success!');");
-			    out.println("location='bookCatalog.jsp';");
-			    out.println("</script>");		
+			    out.println("alert('Registration Success');");
+//			    out.println("location='login.jsp';");
+			    out.println("</script>");
+			    
+			    RequestDispatcher dis = request.getRequestDispatcher("login.jsp");
+				dis.forward(request, response);
 				
-				System.out.println("Registration Success!");
+				System.out.println("Registration Success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			}
-
-//			RequestDispatcher dis = request.getRequestDispatcher("bookCatalog.jsp");
-//			dis.forward(request, response);
 			
 		} else {
 		    PrintWriter out = response.getWriter();
@@ -100,8 +93,6 @@ public class RegistrationServlet extends HttpServlet {
 		    out.println("alert('Registration Fail!');");
 		    out.println("location='login.jsp';");
 		    out.println("</script>");
-//			RequestDispatcher dis = request.getRequestDispatcher("login.jsp");
-//			dis.forward(request, response);
 		}
 	}
 

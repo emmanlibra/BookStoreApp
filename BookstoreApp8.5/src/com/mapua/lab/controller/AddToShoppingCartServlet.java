@@ -44,7 +44,7 @@ public class AddToShoppingCartServlet extends HttpServlet {
 		bookOrder.setPrice(bookPriceadded);
 		
 		HttpSession session = request.getSession();
-		@SuppressWarnings("unchecked")
+
 		ArrayList<Book> listOfCart = (ArrayList<Book>) session.getAttribute(Utils.SHOPPING_CART_SESSION);
 		listOfCart.add(bookOrder);
 		

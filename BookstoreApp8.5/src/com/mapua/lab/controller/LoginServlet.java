@@ -42,31 +42,24 @@ public class LoginServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		session.setAttribute(Utils.USER_SESSION, username);
+		
+		ArrayList<Book> list = new ArrayList<Book>();
+		session.setAttribute(Utils.SHOPPING_CART_SESSION, list);
+		
+		session.setAttribute(Utils.TOTAL_PRICE, new Double(0.00));
+		
 		CustomerDao custdao = new CustomerDao();
 		
 		if (custdao.validateAdmin(username, password) ==  true) {
-			
-			session.setAttribute(Utils.USER_SESSION, username);
-			
-			ArrayList<Book> list = new ArrayList<Book>();
-			session.setAttribute(Utils.SHOPPING_CART_SESSION, list);
-			
-			session.setAttribute(Utils.TOTAL_PRICE, new Double(0.00));
-			
+					
 			PrintWriter out = response.getWriter();
 			out.println("Admin Login Sucessfully");
-			response.sendRedirect("addBookForm.jsp");
+//			response.sendRedirect("addBookForm.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("addBookForm.jsp");
+			dis.forward(request, response);
 			
 		} else if (custdao.validateCustomer(username, password) == true  ) {
-
-			session.setAttribute(Utils.USER_SESSION, username);
-			
-			ArrayList<Book> list = new ArrayList<Book>();
-			session.setAttribute(Utils.SHOPPING_CART_SESSION, list);
-			
-			session.setAttribute(Utils.TOTAL_PRICE, new Double(0.00));
-			
-			System.out.println("this is after session cartItems");
 			
 			RequestDispatcher dis = request.getRequestDispatcher("bookCatalog.jsp");
 			dis.forward(request, response);
